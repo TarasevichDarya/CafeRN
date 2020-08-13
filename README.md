@@ -12,3 +12,4 @@ Simple react native app
 ![alt text](components/screenshots/5.png "Home screen")
 ![alt text](components/screenshots/6.png "Home screen")
 ![alt text](components/screenshots/7.png "Home screen")
+![alt text](components/screenshots/8.png "Home screen")
