@@ -74,6 +74,13 @@ const MainNavigator = createDrawerNavigator({
           drawerLabel: 'Home'
         }
       },
+    About: 
+      { screen: AboutNavigator,
+        navigationOptions: {
+          title: 'About',
+          drawerLabel: 'About Us'
+        }, 
+      },
     Menu: 
       { screen: MenuNavigator,
         navigationOptions: {
@@ -86,13 +93,6 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Contact',
           drawerLabel: 'Contact Us'
-        }, 
-      },
-    About: 
-      { screen: AboutNavigator,
-        navigationOptions: {
-          title: 'About',
-          drawerLabel: 'About Us'
         }, 
       }
 }, {
