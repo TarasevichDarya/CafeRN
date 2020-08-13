@@ -40,7 +40,7 @@ function History() {
                     <Text style={{textAlign: "center", fontSize: 18, fontWeight: "bold"}}>
                         Our History
                     </Text>
-                    <View style={{backgroundColor: 'gray', height: 1, alignSelf: 'stretch', margin: 5}} />
+                    <View style={{backgroundColor: 'gray', height: 0.7, alignSelf: 'stretch', margin: 5}} />
                     <Text style={{margin: 10, fontSize: 14}}>
                         {ourHistoryPartOne}
                     </Text>
@@ -56,7 +56,7 @@ function History() {
                     <Text style={{textAlign: "center", fontSize: 18, fontWeight: "bold"}}>
                         Corporate Leadership
                     </Text>
-                    <View style={{backgroundColor: 'gray', height: 1, alignSelf: 'stretch', margin: 5}} />
+                    <View style={{backgroundColor: 'gray', height: 0.7, alignSelf: 'stretch', margin: 5}} />
                     {renderLeaderFlatlist(LEADERS)}
                 </Card>
             </ScrollView>
