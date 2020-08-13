@@ -1,4 +1,5 @@
 const ALBERTO_IMAGE = require('../components/images/alberto.png');
+const IMAGE = '../components/images/alberto.png';
 
 export const LEADERS = [
     {

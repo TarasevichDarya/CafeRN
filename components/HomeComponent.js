@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, SafeAreaView } from 'react-native';
+import { ScrollView, Text, View, ActivityIndicator } from 'react-native';
 import { Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 
-function RenderItem(props) {
-    const item = props.item;
-
-    if(item != null) {
-        return(
-            <Card
+const RenderItem = (props) => {
+    const item = props.item?.filter((promo) => promo.featured)[0];
+    const isLoading = props.isLoading;
+    
+        return (
+            <View>
+            {isLoading &&
+                <View style={{ height: 50, width: '100%', justifyContent: 'center' }}>
+                    <ActivityIndicator size={'large'}  />
+                </View>
+            }
+            {item && !isLoading &&
+             <Card
                 featuredTitle={item.name}
                 featuredSubtitle={item.designation}
                 image={{uri: baseUrl + item.image}}
@@ -18,10 +25,9 @@ function RenderItem(props) {
                     {item.description}
                 </Text>
             </Card>
-        );
-    } else {
-        return(<SafeAreaView></SafeAreaView>);
-    }
+            }
+            </View>
+            );    
 }
 
 class Home extends Component {
@@ -29,20 +35,22 @@ class Home extends Component {
     static navigationOptions = {
         title: 'Home'
     }
-    
     render() {
         return(
             <ScrollView>
-                <RenderItem
-                    item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+                    <RenderItem
+                        isLoading={this.props.dishes.isLoading}
+                        item={this.props.dishes.dishes}
                     />
-                <RenderItem
-                    item={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
+                    <RenderItem
+                        isLoading={this.props.promotions.isLoading}
+                        item={this.props.promotions.promotions}
                     />
-                <RenderItem
-                    item={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+                    <RenderItem
+                        isLoading={this.props.leaders.isLoading}
+                        item={this.props.leaders.leaders}
                     />
-            </ScrollView>
+                </ScrollView>
         );
     }
 }

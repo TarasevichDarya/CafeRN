@@ -15,7 +15,7 @@ const History = (props) => {
                 title={item.name}
                 subtitle={item.description}
                 hideChevron={true} 
-                leftAvatar={{source: { uri: baseUrl + item.image }}} //{{source: item.image}}
+                leftAvatar={{source: { uri: baseUrl + item.image }}} 
             />
         );
     }
@@ -57,7 +57,7 @@ const History = (props) => {
                         Corporate Leadership
                     </Text>
                     <View style={{backgroundColor: 'gray', height: 0.7, alignSelf: 'stretch', margin: 5}} />
-                    {renderLeaderFlatlist(LEADERS)}
+                    {renderLeaderFlatlist()}
                 </Card>
             </ScrollView>
         </SafeAreaView> 
