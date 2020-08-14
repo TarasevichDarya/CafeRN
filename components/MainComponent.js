@@ -9,6 +9,7 @@ import About from './AboutComponent';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/ActionCreators';
+import Reservation from './ReservationComponent';
 
 const MenuNavigator = createStackNavigator({
     Menu: { screen: Menu,
@@ -78,6 +79,27 @@ const ContactNavigator = createStackNavigator({
   })
 });
 
+const ReservationNavigator = createStackNavigator({
+  Reservation: { screen: Reservation }
+}, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTitleStyle: {
+        color: "#fff"            
+    },
+    headerTintColor: "#fff",
+    headerLeft: 
+    <TouchableOpacity 
+      activeOpacity={0.8}
+      style={{ alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15 }}
+      onPress={() => navigation.toggleDrawer()}>
+      <Icon name='bars' size={24} color='white' />
+    </TouchableOpacity>
+  })
+});
+
 const AboutNavigator = createStackNavigator({
   About: { screen: About }
 }, {
@@ -123,7 +145,7 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Home',
           drawerLabel: 'Home',
-          drawerIcon: ({ tintColor, focused }) => (
+          drawerIcon: ({ tintColor }) => (
           <Icon name='home' size={24} color={tintColor} />
           )
         }
@@ -133,7 +155,7 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'About',
           drawerLabel: 'About Us',
-          drawerIcon: ({ tintColor, focused }) => (
+          drawerIcon: ({ tintColor }) => (
             <Icon name='info-circle' size={24} color={tintColor} />
           )
         }, 
@@ -143,7 +165,7 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
           title: 'Menu',
           drawerLabel: 'Menu',
-          drawerIcon: ({ tintColor, focused }) => (
+          drawerIcon: ({ tintColor }) => (
             <Icon name='list' size={24} color={tintColor} />
           )
         }, 
@@ -151,10 +173,20 @@ const MainNavigator = createDrawerNavigator({
     Contact: 
       { screen: ContactNavigator,
         navigationOptions: {
-          title: 'Contact',
+          title: 'Contact Us',
           drawerLabel: 'Contact Us',
-          drawerIcon: ({ tintColor, focused }) => (
+          drawerIcon: ({ tintColor }) => (
             <Icon name='address-card' size={22} color={tintColor} />
+          )
+        }, 
+      },
+    Reservation: 
+      { screen: ReservationNavigator,
+        navigationOptions: {
+          title: 'Reserve Table',
+          drawerLabel: 'Reserve Table',
+          drawerIcon: ({ tintColor }) => (
+            <Icon name='cutlery' size={24} color={tintColor} />
           )
         }, 
       }
