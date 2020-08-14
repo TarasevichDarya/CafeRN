@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
-import { View, Platform, SafeAreaView, Image, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, Platform, SafeAreaView, Image, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
@@ -13,7 +13,13 @@ import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/
 const MenuNavigator = createStackNavigator({
     Menu: { screen: Menu,
       navigationOptions: ({ navigation }) => ({
-        headerLeft: <Icon name='bars' size={24} color='white' onPress={() => navigation.toggleDrawer()} />
+        headerLeft: 
+        <TouchableOpacity 
+          activeOpacity={0.8}
+          style={{ alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15 }}
+          onPress={() => navigation.toggleDrawer()}>
+          <Icon name='bars' size={24} color='white' />
+        </TouchableOpacity>
       }) 
     },
     Dishdetail: { screen: Dishdetail}
@@ -41,7 +47,13 @@ const HomeNavigator = createStackNavigator({
           color: "#fff"            
       },
       headerTintColor: "#fff",
-      headerLeft: <Icon name='bars' size={24} color='white' onPress={() => navigation.toggleDrawer()} />
+      headerLeft: 
+      <TouchableOpacity 
+        activeOpacity={0.8}
+        style={{ alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15 }}
+        onPress={() => navigation.toggleDrawer()}>
+        <Icon name='bars' size={24} color='white' />
+      </TouchableOpacity>
     })
 });
 
@@ -56,7 +68,13 @@ const ContactNavigator = createStackNavigator({
         color: "#fff"            
     },
     headerTintColor: "#fff",
-    headerLeft: <Icon name='bars' size={24} color='white' onPress={() => navigation.toggleDrawer()} />
+    headerLeft: 
+    <TouchableOpacity 
+      activeOpacity={0.8}
+      style={{ alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15 }}
+      onPress={() => navigation.toggleDrawer()}>
+      <Icon name='bars' size={24} color='white' />
+    </TouchableOpacity>
   })
 });
 
@@ -71,7 +89,13 @@ const AboutNavigator = createStackNavigator({
         color: "#fff"            
     },
     headerTintColor: "#fff",
-    headerLeft: <Icon name='bars' size={24} color='white' onPress={() => navigation.toggleDrawer()} />  
+    headerLeft: 
+    <TouchableOpacity 
+      activeOpacity={0.8}
+      style={{ alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15 }}
+      onPress={() => navigation.toggleDrawer()}>
+      <Icon name='bars' size={24} color='white' />
+    </TouchableOpacity>
   })
 });
 

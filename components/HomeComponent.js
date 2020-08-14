@@ -1,33 +1,42 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, ActivityIndicator } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
 
 const RenderItem = (props) => {
     const item = props.item?.filter((promo) => promo.featured)[0];
-    const isLoading = props.isLoading;
-    
+
+    if(props.isLoading) {
+        return(
+            <Loading />
+        );
+    } else if(props.errMess) {
+        return(
+            <View>
+                <Text>
+                    {props.errMess}
+                </Text>
+            </View>
+        );
+    } else {
         return (
             <View>
-            {isLoading &&
-                <View style={{ height: 50, width: '100%', justifyContent: 'center' }}>
-                    <ActivityIndicator size={'large'}  />
-                </View>
-            }
-            {item && !isLoading &&
-             <Card
-                featuredTitle={item.name}
-                featuredSubtitle={item.designation}
-                image={{uri: baseUrl + item.image}}
-                >
-                <Text style={{margin: 10}}>
-                    {item.description}
-                </Text>
-            </Card>
+            {item && 
+                <Card
+                    featuredTitle={item.name}
+                    featuredSubtitle={item.designation}
+                    image={{uri: baseUrl + item.image}}
+                    >
+                    <Text style={{margin: 10}}>
+                        {item.description}
+                    </Text>
+                </Card>
             }
             </View>
-            );    
+        );    
+    }
 }
 
 class Home extends Component {
@@ -39,16 +48,19 @@ class Home extends Component {
         return(
             <ScrollView>
                     <RenderItem
-                        isLoading={this.props.dishes.isLoading}
                         item={this.props.dishes.dishes}
+                        isLoading={this.props.dishes.isLoading}
+                        errMess={this.props.dishes.errMess}
                     />
                     <RenderItem
-                        isLoading={this.props.promotions.isLoading}
                         item={this.props.promotions.promotions}
+                        isLoading={this.props.promotions.isLoading}
+                        errMess={this.props.promotions.errMess}
                     />
                     <RenderItem
-                        isLoading={this.props.leaders.isLoading}
                         item={this.props.leaders.leaders}
+                        isLoading={this.props.leaders.isLoading}
+                        errMess={this.props.leaders.errMess}
                     />
                 </ScrollView>
         );
