@@ -3,6 +3,7 @@ import { View, FlatList, SafeAreaView, Text, ScrollView, StyleSheet, Modal, Butt
 import { Card, Input, Rating } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
+import * as Animatable from 'react-native-animatable';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite, postComment } from '../redux/ActionCreators';
 
@@ -11,30 +12,32 @@ function RenderDish(props) {
 
     if(dish != null) {
         return(
-            <Card
-                featuredTitle={dish.name}
-                image={{ uri: baseUrl + dish.image }}
-            >
-                <Text style={{margin: 10}}>
-                    {dish.description}
-                </Text>
-                <View style={styles.row}>
-                    <Icon 
-                        raised 
-                        reverse 
-                        name={ props.favorite ? 'heart' : 'heart' } 
-                        style={ props.favorite ? { fontSize: 20, color: '#f50', justifyContent: 'center' } : { fontSize: 20, backgroundColor: 'white', justifyContent: 'center' }} 
-                        onPress={() => props.favorite ? console.log('Already favorite') : props.onLikePress()} 
-                    />
-                    <Icon 
-                        raised 
-                        reverse 
-                        name='pencil'
-                        style={{ fontSize: 20, padding:10, justifyContent: 'center' }} 
-                        onPress={() => props.onEditPress()} 
-                    />
-                </View>
-            </Card>
+            <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+                <Card
+                    featuredTitle={dish.name}
+                    image={{ uri: baseUrl + dish.image }}
+                >
+                    <Text style={{margin: 10}}>
+                        {dish.description}
+                    </Text>
+                    <View style={styles.row}>
+                        <Icon 
+                            raised 
+                            reverse 
+                            name={ props.favorite ? 'heart' : 'heart' } 
+                            style={ props.favorite ? { fontSize: 20, color: '#f50', justifyContent: 'center' } : { fontSize: 20, backgroundColor: 'white', justifyContent: 'center' }} 
+                            onPress={() => props.favorite ? console.log('Already favorite') : props.onLikePress()} 
+                        />
+                        <Icon 
+                            raised 
+                            reverse 
+                            name='pencil'
+                            style={{ fontSize: 20, padding:10, justifyContent: 'center' }} 
+                            onPress={() => props.onEditPress()} 
+                        />
+                    </View>
+                </Card>
+            </Animatable.View>
         );
     } else {
         return(<SafeAreaView />);
@@ -68,16 +71,18 @@ function RenderComments(props) {
     }
 
     return(
-        <Card 
-            title="Comments"
-            dividerStyle={{ backgroundColor: 'gray', height: 0.7 }}
-            >
-            <FlatList
-                data={comments}
-                renderItem={renderCommentItem}
-                keyExtractor={item => item.id.toString()} 
-                />
-        </Card>
+        <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+            <Card 
+                title="Comments"
+                dividerStyle={{ backgroundColor: 'gray', height: 0.7 }}
+                >
+                <FlatList
+                    data={comments}
+                    renderItem={renderCommentItem}
+                    keyExtractor={item => item.id.toString()} 
+                    />
+            </Card>
+        </Animatable.View>
     );
 }
 
