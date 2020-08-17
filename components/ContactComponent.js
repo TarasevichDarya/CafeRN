@@ -19,7 +19,7 @@ class Contact extends Component {
     render() {
         return(
             <SafeAreaView>
-                <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+                <Animatable.View animation="fadeInDown" duration={2000} delay={1000} useNativeDriver={true}>
                     <Card
                         featuredTitle={'con1'}
                         featuredSubtitle={'con2'}

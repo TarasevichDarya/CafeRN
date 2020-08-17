@@ -82,21 +82,21 @@ class Home extends Component {
 
         return(
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                <Animated.View style={{ width: '100%', transform: [{ translateX: xpos1 }] }}>
+                <Animated.View style={{ width: '100%', transform: [{ translateX: xpos1 }] }} useNativeDriver={true}>
                     <RenderItem
                         item={this.props.dishes.dishes}
                         isLoading={this.props.dishes.isLoading}
                         errMess={this.props.dishes.errMess}
                     />
                 </Animated.View>
-                <Animated.View style={{ width: '100%', transform: [{ translateX: xpos2 }] }}>
+                <Animated.View style={{ width: '100%', transform: [{ translateX: xpos2 }] }} useNativeDriver={true}>
                     <RenderItem
                         item={this.props.promotions.promotions}
                         isLoading={this.props.promotions.isLoading}
                         errMess={this.props.promotions.errMess}
                     />
                 </Animated.View>
-                <Animated.View style={{ width: '100%', transform: [{ translateX: xpos3 }] }}>
+                <Animated.View style={{ width: '100%', transform: [{ translateX: xpos3 }] }} useNativeDriver={true}>
                     <RenderItem
                         item={this.props.leaders.leaders}
                         isLoading={this.props.leaders.isLoading}
