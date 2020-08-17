@@ -23,7 +23,7 @@ class Reservation extends Component {
   }
 
   toggleModal() {
-    this.setState({ showModal: !this.state.showModal })
+    this.setState({ showModal: !this.state.showModal });
   }
 
   handleReservation() {
