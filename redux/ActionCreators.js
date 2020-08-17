@@ -31,14 +31,39 @@ export const addComments = (comments) => ({
     payload: comments
 });
 
-export const postComment = (dishId, rating, author, comment) => (dispatch) => {
-    setTimeout(() => {
-        const dateToday = new Date();
-        const date = dateToday.toISOString();
-        const dataForComment = {dishId, rating, author, comment, date};
-        dispatch(addComment(dataForComment));
-    }, 2000);
-}
+export const postComment = (dishId, rating, author, comment)  => (dispatch) => {
+    const dataForComment = {
+        dishId: dishId,
+        rating: rating,
+        author: author,
+        comment: comment
+    };
+    dataForComment.date = new Date().toISOString();
+    return fetch(baseUrl + 'comments', {
+        method: 'POST',
+        body: JSON.stringify(dataForComment),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if(response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        throw error;
+    })
+    .then(response => response.json())
+    .then(response => setTimeout(() => {dispatch(addComment(response))}, 2000))
+    .catch(error => { console.log('post comments', error.message); alert('Your comment cannot be posted\nError: ' + error.message); });
+};
+
 
 export const addComment = (dataForComment) => ({
     type: ActionTypes.ADD_COMMENT,
