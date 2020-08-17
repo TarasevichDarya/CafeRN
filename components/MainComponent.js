@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import { View, Platform, SafeAreaView, Image, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { connect } from 'react-redux';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
-import { View, Platform, SafeAreaView, Image, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native';
-import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { connect } from 'react-redux';
-import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/ActionCreators';
 import Reservation from './ReservationComponent';
+import Favorites from './FavoriteComponent';
+import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/ActionCreators';
+
 
 const MenuNavigator = createStackNavigator({
     Menu: { screen: Menu,
@@ -79,6 +81,27 @@ const ContactNavigator = createStackNavigator({
   })
 });
 
+const AboutNavigator = createStackNavigator({
+  About: { screen: About }
+}, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTitleStyle: {
+        color: "#fff"            
+    },
+    headerTintColor: "#fff",
+    headerLeft: 
+    <TouchableOpacity 
+      activeOpacity={0.8}
+      style={{ alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15 }}
+      onPress={() => navigation.toggleDrawer()}>
+      <Icon name='bars' size={24} color='white' />
+    </TouchableOpacity>
+  })
+});
+
 const ReservationNavigator = createStackNavigator({
   Reservation: { screen: Reservation }
 }, {
@@ -100,8 +123,8 @@ const ReservationNavigator = createStackNavigator({
   })
 });
 
-const AboutNavigator = createStackNavigator({
-  About: { screen: About }
+const FavoritesNavigator = createStackNavigator({
+  Favorites: { screen: Favorites }
 }, {
   navigationOptions: ({ navigation }) => ({
     headerStyle: {
@@ -177,6 +200,16 @@ const MainNavigator = createDrawerNavigator({
           drawerLabel: 'Contact Us',
           drawerIcon: ({ tintColor }) => (
             <Icon name='address-card' size={22} color={tintColor} />
+          )
+        }, 
+      },
+    Favorites: 
+      { screen: FavoritesNavigator,
+        navigationOptions: {
+          title: 'My Favorites',
+          drawerLabel: 'My Favorites',
+          drawerIcon: ({ tintColor }) => (
+            <Icon name='heart' size={24} color={tintColor} />
           )
         }, 
       },
