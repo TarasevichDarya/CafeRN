@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, SafeAreaView, View } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Text, SafeAreaView, View, Linking } from 'react-native';
+import { Card, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
 const streetPartOne = '121, Clear Water Bay Road';
@@ -14,6 +14,28 @@ class Contact extends Component {
 
     static navigationOptions = {
         title: 'Contact Us'
+    }
+
+    sendEmail() {
+        let to = 'd.tarasevich@softteco.com';
+        let url = `mailto:${to}`;
+
+        const query = {
+            subject: 'Enquiry',
+            body: 'To whom it may concern:',
+        };
+
+        if (query.length) {
+            url += `?${query}`;
+        }
+
+        const canOpen = Linking.canOpenURL(url);
+
+        if (!canOpen) {
+            throw new Error('Provided URL can not be handled');
+        }
+
+        return Linking.openURL(url);
     }
 
     render() {
@@ -46,6 +68,12 @@ class Contact extends Component {
                         <Text style={{margin: 10, fontSize: 14, fontWeight: "bold"}}>
                             {emailOfCafe}
                         </Text>
+                        <Button
+                            title="Send Email"
+                            buttonStyle={{backgroundColor: "#512DA8"}}
+                            icon={<Icon name='envelope-o' type='font-awesome' color='white' style={{margin: 10}} />}
+                            onPress={this.sendEmail}
+                        />
                     </Card>
                 </Animatable.View>
             </SafeAreaView>

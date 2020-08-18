@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "542038199144",
+    "firebase_url": "https://confusion-bda13.firebaseio.com",
+    "project_id": "confusion-bda13",
+    "storage_bucket": "confusion-bda13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542038199144:android:633ef6eb243c58134ce4dd",
+        "android_client_info": {
+          "package_name": "com.confusion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542038199144-9j96l35us8iic0765lc25hfem9g4r1dr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTIf2UCG691eAyyh4RtTaRwjyeWVSCmug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542038199144-9j96l35us8iic0765lc25hfem9g4r1dr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
