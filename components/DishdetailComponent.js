@@ -209,11 +209,13 @@ class Dishdetail extends Component {
                             />
                         <Input 
                             placeholder={'Author'}
+                            leftIcon={{ type: 'font-awesome', name: 'user-o' }}
                             value={this.state.author}
                             onChangeText={(value) => this.setState({ author: value })} 
                         />
                         <Input 
                             placeholder={'Comment'} 
+                            leftIcon={{ type: 'font-awesome', name: 'pencil' }}
                             value={this.state.dishComment}
                             onChangeText={(value) => this.setState({ dishComment: value })}
                         />
