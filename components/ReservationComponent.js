@@ -5,6 +5,31 @@ import { Card } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Animatable from 'react-native-animatable';
+import PushNotification from 'react-native-push-notification';
+
+PushNotification.configure({
+  // (required) Called when a remote or local notification is opened or received
+  onNotification: function(notification) {
+    console.log('LOCAL NOTIFICATION ==>', notification)
+  },
+  popInitialNotification: true,
+  requestPermissions: true
+})
+
+const LocalNotification = (date) => {
+  PushNotification.localNotification({
+    autoCancel: true,
+    bigText: 'Reservation for '+ date + ' requested',
+    subText: 'Your Reservation',
+    title: 'Your Reservation',
+    message: 'Expand me to see more',
+    vibrate: true,
+    vibration: 300,
+    playSound: true,
+    soundName: 'default',
+    //actions: '["Yes", "No"]'
+  })
+}
 
 class Reservation extends Component {
 
@@ -37,7 +62,7 @@ class Reservation extends Component {
             text: 'Cancel', onPress: () => {console.log('Not Reserved'); this.resetForm()}, style: 'cancel'
           },
           {
-            text: 'OK', onPress: () => {console.log('Table was reserved'); this.resetForm()}
+            text: 'OK', onPress: () => {console.log('Table was reserved'); LocalNotification(this.state.date); this.resetForm()}
           }
         ],
         { cancelable: false }
