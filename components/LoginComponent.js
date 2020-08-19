@@ -6,6 +6,12 @@ import { createBottomTabNavigator } from 'react-navigation';
 import { baseUrl } from '../shared/baseUrl';
 import * as Animatable from 'react-native-animatable';
 import ImageResizer from 'react-native-image-resizer';
+import RNSInfo from 'react-native-sensitive-info';
+
+const options = {
+  sharedPreferencesName: 'rnsharedpreferences',
+  keychainService: 'myKeychain'
+}
 
 class LoginTab extends Component {
 
@@ -25,8 +31,30 @@ class LoginTab extends Component {
     )
   };
 
+  componentDidMount() {
+    RNSInfo.getItem('userinfo', options).then((userdata) => {
+      let userinfo = JSON.parse(userdata);
+      if(userinfo) {
+        this.setState({
+          username: userinfo.username,
+          password: userinfo.password,
+          remember: true
+        })
+      }
+    })
+  }
+
   handleLogin() {
     console.log(JSON.stringify(this.state));
+
+    if(this.state.remember) {
+      RNSInfo.setItem('userinfo', JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      }),options).catch((error) => console.log('Could not save user info', error));
+    } else {
+      RNSInfo.deleteItem('userinfo', options).catch((error) => console.log('Could not delete user info', error));
+    }
   }
 
   render() {
@@ -133,6 +161,15 @@ class RegisterTab extends Component {
 
   handleRegister() {
     console.log(JSON.stringify(this.state));
+
+    if(this.state.remember) {
+      RNSInfo.setItem('userinfo', JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      }),options).catch((error) => console.log('Could not save user info', error));
+    } else {
+      RNSInfo.deleteItem('userinfo', options).catch((error) => console.log('Could not delete user info', error));
+    }
   }
 
   render() {
@@ -171,7 +208,7 @@ class RegisterTab extends Component {
             <Input
               placeholder="First Name"
               leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-              onChangeText={(lastname) => this.setState({firstname})}
+              onChangeText={(firstname) => this.setState({firstname})}
               value={this.state.firstname}
               containerStyle={styles.formInput}
             />
