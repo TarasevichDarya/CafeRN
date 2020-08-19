@@ -5,6 +5,7 @@ import ImagePicker from 'react-native-image-picker';
 import { createBottomTabNavigator } from 'react-navigation';
 import { baseUrl } from '../shared/baseUrl';
 import * as Animatable from 'react-native-animatable';
+import ImageResizer from 'react-native-image-resizer';
 
 class LoginTab extends Component {
 
@@ -109,12 +110,19 @@ class RegisterTab extends Component {
         console.log(response.error);
       } else if (!response.didCancel) {
         console.log(response);
-        this.setState({imageUrl: response.uri}); 
+        this.processImage(response.uri);
       } else {
         console.log('User cancelled image picker');
       }
     });
   }
+
+  processImage = (imageUrl) => {
+    ImageResizer.createResizedImage(imageUrl, 400, 400, "PNG", 100).then((response) => {
+      console.log(response);
+      this.setState({ imageUrl: response.uri });  
+    });
+  };
   
   static navigationOptions = {
       title: 'Register',
