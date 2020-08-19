@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Platform, SafeAreaView, Image, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { View, Platform, SafeAreaView, Image, StyleSheet, ScrollView, Text, TouchableOpacity, ToastAndroid } from 'react-native';
+import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -261,22 +262,58 @@ const MainNavigator = createDrawerNavigator({
   contentComponent: CustomDrawerContentComponent
 });
 
+const GetNetInfo = () => {
+  const netInfo = useNetInfo();
+  console.log("Network info (2 way): ", netInfo);
+  
+  const unsubscribe = NetInfo.addEventListener(state => {
+    console.log("Connection type", state.type);
+    ToastAndroid.show('Initial Network Connectivity Type: ' + state.type + ', isConnected: ' + state.isConnected, ToastAndroid.LONG);
+
+    handleConnectivityChange(state);
+  });
+
+  function handleConnectivityChange(connectionInfo) {
+    switch (connectionInfo.type) {
+      case 'none':
+        ToastAndroid.show('You are now offline!', ToastAndroid.LONG);
+        break;
+      case 'wifi':
+        ToastAndroid.show('You are now connected to WiFi!', ToastAndroid.LONG);
+        break;
+      case 'cellular':
+        ToastAndroid.show('You are now connected to Cellular!', ToastAndroid.LONG);
+        break;
+      case 'unknown':
+        ToastAndroid.show('You now have unknown connection!', ToastAndroid.LONG);
+        break;
+      default:
+        break;
+    }
+  }
+
+  unsubscribe();
+
+  return(null);
+};
+
 class Main extends Component {
 
-    componentDidMount() {
-      this.props.fetchDishes();
-      this.props.fetchLeaders();
-      this.props.fetchPromos();
-      this.props.fetchComments();
-    }
+  componentDidMount() {
+    this.props.fetchDishes();
+    this.props.fetchLeaders();
+    this.props.fetchPromos();
+    this.props.fetchComments();
+  }
   
-    render() {
-        return(
-            <SafeAreaView style={{ flex: 1 }}>
-                <MainNavigator />
-            </SafeAreaView>
-        );
-    }
+  render() {
+      return(
+          <SafeAreaView style={{ flex: 1 }}>
+              <MainNavigator />
+              <GetNetInfo />
+          </SafeAreaView>
+      );
+  }
 }
 
 const styles = StyleSheet.create({
