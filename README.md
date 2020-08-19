@@ -1,5 +1,5 @@
 # CafeRN
-Simple react native app
+Simple react native app for Cafe
 
 1) yarn install
 2) yarn start
@@ -22,3 +22,8 @@ Also you need to install json-server:
 ![alt text](components/screenshots/12.png "Home screen")
 ![alt text](components/screenshots/13.png "Home screen")
 ![alt text](components/screenshots/14.png "Home screen")
+![alt text](components/screenshots/15.png "Home screen")
+![alt text](components/screenshots/16.png "Home screen")
+![alt text](components/screenshots/17.png "Home screen")
+![alt text](components/screenshots/18.png "Home screen")
+![alt text](components/screenshots/19.png "Home screen")
