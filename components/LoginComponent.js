@@ -97,7 +97,23 @@ class RegisterTab extends Component {
   }
 
   getImageFromCamera = () => {
-    console.log('Image from camera');
+    const options = {
+      title: 'Pick Photo',
+      allowsEditing: true,
+      mediaType: 'photo'
+    };
+
+    ImagePicker.launchCamera(options, (response) => {
+      console.log('Response from launchCamera ', response);
+      if (response.error) {
+        console.log(response.error);
+      } else if (!response.didCancel) {
+        console.log(response);
+        this.setState({imageUrl: response.uri}); 
+      } else {
+        console.log('User cancelled image picker');
+      }
+    });
   }
   
   static navigationOptions = {
@@ -216,7 +232,8 @@ const styles = StyleSheet.create({
   image: {
     margin: 10,
     width: 80,
-    height: 60
+    height: 80,
+    borderRadius: 40
   },
   cameraIcon: {
     borderRadius: 20, 
