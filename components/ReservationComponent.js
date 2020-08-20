@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet, Picker, Switch , Button, TouchableOpacity, Modal, Alert } from 'react-native';
 import moment from 'moment';
-import { Card } from 'react-native-elements';
-import DatePicker from 'react-native-datepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as Animatable from 'react-native-animatable';
 import PushNotification from 'react-native-push-notification';
+import RNCalendarEvents from "react-native-calendar-events";
 
 PushNotification.configure({
-  // (required) Called when a remote or local notification is opened or received
   onNotification: function(notification) {
     console.log('LOCAL NOTIFICATION ==>', notification)
   },
@@ -16,7 +14,7 @@ PushNotification.configure({
   requestPermissions: true
 })
 
-const LocalNotification = (date) => {
+const localNotification = (date) => {
   PushNotification.localNotification({
     autoCancel: true,
     bigText: 'Reservation for '+ date + ' requested',
@@ -31,6 +29,30 @@ const LocalNotification = (date) => {
   })
 }
 
+const convertMomentToDate = (date) => {
+  return date.toDate();
+}
+
+const convertMomentToDateAndPlusTwoHours = (date) => {
+  return new Date(date.toDate().setHours(date.toDate().getHours() + 2));
+}
+
+const convertDateToISO = (date) => {
+  return date.toISOString();
+}
+
+const createEvent = (eventTitle, eventStartDate, eventEndDate, eventLocation, eventDescrition) => {
+  RNCalendarEvents.requestPermissions((readOnly = false));
+
+  RNCalendarEvents.saveEvent(eventTitle, {
+    startDate: convertDateToISO(eventStartDate),
+    endDate: convertDateToISO(eventEndDate),
+    location: eventLocation,
+    description: eventDescrition
+  });
+
+} 
+
 class Reservation extends Component {
 
   constructor(props) {
@@ -40,6 +62,7 @@ class Reservation extends Component {
       guests: 1,
       smoking: false,
       date: moment().format('YYYY-MM-DD h:mm a'),
+      dateObject: moment(),
       showModal: false
     }
   }
@@ -59,10 +82,20 @@ class Reservation extends Component {
         `Number of Guests: ${this.state.guests} \nSmoking? ${this.state.smoking ? 'Yes' : 'No'} \nDate and Time: ${this.state.date}`,
         [
           {
-            text: 'Cancel', onPress: () => {console.log('Not Reserved'); this.resetForm()}, style: 'cancel'
+            text: 'Cancel', onPress: () => {console.log('Not Reserved'); this.resetForm();}, style: 'cancel'
           },
           {
-            text: 'OK', onPress: () => {console.log('Table was reserved'); LocalNotification(this.state.date); this.resetForm()}
+            text: 'OK', onPress: () => {
+              console.log('Table was reserved'); 
+              localNotification(this.state.date); 
+              createEvent(
+                'Con Fusion Table Reservation', 
+                convertMomentToDate(this.state.dateObject), 
+                convertMomentToDateAndPlusTwoHours(this.state.dateObject), 
+                '121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong',
+                `You have a table reservation in Con Fusion cafe! \nNumber of guests: ${this.state.guests}, smoking? ${this.state.smoking ? 'Yes' : 'No'}.`
+              ); 
+              this.resetForm();}
           }
         ],
         { cancelable: false }
@@ -74,7 +107,8 @@ class Reservation extends Component {
     this.setState({
       guests: 1,
       smoking: false,
-      date: moment().format('YYYY-MM-DD h:mm a')
+      date: moment().format('YYYY-MM-DD h:mm a'),
+      dateObject: moment()
     });
   }
 
@@ -84,7 +118,7 @@ class Reservation extends Component {
         mode={'datetime'}
         isVisible={this.state.isModalVisible}
         onDateChange={(value) => this.setState({ date: value })}
-        onConfirm={(value) => this.setState({ isModalVisible: false, date: moment(value).format('YYYY-MM-DD h:mm a') })}
+        onConfirm={(value) => this.setState({ isModalVisible: false, date: moment(value).format('YYYY-MM-DD h:mm a'), dateObject: moment(value) })}
         onCancel={() => this.setState({ isModalVisible: false })}
       />
     )
@@ -156,8 +190,6 @@ class Reservation extends Component {
     );
   }
 }
-
-//react-native-datepicker - mode datetime works only for ios
 
 const styles = StyleSheet.create({
   formRow: {

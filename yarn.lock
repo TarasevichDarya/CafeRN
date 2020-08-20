@@ -5813,6 +5813,11 @@ react-native-animatable@1.2.4:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-calendar-events@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendar-events/-/react-native-calendar-events-2.1.0.tgz#726392ce8aad9d860790286b241c3d23024e53be"
+  integrity sha512-zt9VVA1LeQXanK6J8PN77WWR0YoC0AmEL4VEnMy6epAvv4jsrKw74IoonvMWjqmt7sjVC2eFcT6+VjgprQth3A==
+
 react-native-datepicker@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/react-native-datepicker/-/react-native-datepicker-1.7.2.tgz#58d0822591a0ac9b32aba082650222a0ee29669d"

@@ -22,6 +22,7 @@
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-animatable": "1.2.4",
+    "react-native-calendar-events": "^2.1.0",
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^2.2.1",
     "react-native-image-picker": "^2.3.3",
