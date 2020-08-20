@@ -125,15 +125,18 @@ class RegisterTab extends Component {
       }
   }
 
-  getImageFromCamera = () => {
+  getPhoto = () => {
     const options = {
-      title: 'Pick Photo',
+      title: 'Select Avatar',
       allowsEditing: true,
-      mediaType: 'photo'
+      mediaType: 'photo',
+      takePhotoButtonTitle: 'Take photo from camera...',
+      chooseFromLibraryButtonTitle: 'Take photo from library...',
+      cancelButtonTitle: 'Cancel'
     };
 
-    ImagePicker.launchCamera(options, (response) => {
-      console.log('Response from launchCamera ', response);
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response from showImagePicker ', response);
       if (response.error) {
         console.log(response.error);
       } else if (!response.didCancel) {
@@ -142,7 +145,7 @@ class RegisterTab extends Component {
       } else {
         console.log('User cancelled image picker');
       }
-    });
+    })
   }
 
   processImage = (imageUrl) => {
@@ -186,7 +189,8 @@ class RegisterTab extends Component {
               />
               <TouchableOpacity
                 style={styles.cameraIcon}
-                onPress={this.getImageFromCamera}
+                //onPress={this.getImageFromCamera}
+                onPress={this.getPhoto}
                 activeOpacity={0.8}>
                   <Icon name='camera' type='font-awesome' size={20} color= 'white' />
               </TouchableOpacity>
