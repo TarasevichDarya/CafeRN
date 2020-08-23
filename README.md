@@ -27,3 +27,4 @@ Also you need to install json-server:
 ![alt text](assets/screenshots/17.png "Home screen")
 ![alt text](assets/screenshots/18.png "Home screen")
 ![alt text](assets/screenshots/19.png "Home screen")
+![alt text](assets/screenshots/20.png "Home screen")
